@@ -58,7 +58,6 @@ const IndexPage = () => {
       <h1>Visualizer</h1>
       <Jexcel options={options} />
 
-      <div id="visualization"></div>
       <Visualizer onTarget={onTarget} headers={headers} data={data} />
 
       <p>Todo, start spreadsheet with a default.</p>
