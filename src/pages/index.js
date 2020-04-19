@@ -1,7 +1,9 @@
 import React, { useState } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Jexcel from "../components/excel"
+
+const JexcelLazy = React.lazy(() => import("../components/excel"))
+
 import Visualizer from "../components/visualizer"
 
 import "../../node_modules/jexcel/dist/jexcel.css"
@@ -24,6 +26,8 @@ const defaultColumns = [
 ]
 
 const IndexPage = () => {
+  const isSSR = typeof window === "undefined"
+
   const [onTarget, setOnTarget] = useState(defaultData[0][0])
   const [headers, setHeaders] = useState(["Reads"])
   const [data, setData] = useState(defaultData)
@@ -56,8 +60,12 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
       <h1>Visualizer</h1>
-      <Jexcel options={options} />
 
+      {!isSSR && (
+        <React.Suspense fallback={<div />}>
+          <JexcelLazy options={options} />
+        </React.Suspense>
+      )}
       <Visualizer onTarget={onTarget} headers={headers} data={data} />
 
       <p>Todo, start spreadsheet with a default.</p>
