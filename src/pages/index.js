@@ -53,6 +53,7 @@ const IndexPage = () => {
       A1: "background-color: orange;",
     },
     onchange: onSheetChange,
+    onchangeheader: onSheetChange,
     copyCompatibility: true,
   }
 
