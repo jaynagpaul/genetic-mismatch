@@ -69,7 +69,7 @@ const IndexPage = () => {
       )}
       <Visualizer onTarget={onTarget} headers={headers} data={data} />
 
-      <p>Todo, start spreadsheet with a default.</p>
+      <p>TODO: add instructions</p>
       {/* <Link to="/page-2/">Go to page 2</Link> */}
     </Layout>
   )
