@@ -2,12 +2,11 @@ import React, { useState } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const JexcelLazy = React.lazy(() => import("../components/excel"))
-
 import Visualizer from "../components/visualizer"
 
 import "../../node_modules/jexcel/dist/jexcel.css"
 
+const JexcelLazy = React.lazy(() => import("../components/excel"))
 const defaultData = [
   ["AATTGGCCNGGAA", 15],
   ["AATTGGCCNGGGG", 11],
