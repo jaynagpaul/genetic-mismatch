@@ -66,6 +66,7 @@ const IndexPage = () => {
           <JexcelLazy options={options} />
         </React.Suspense>
       )}
+      <br />
       <Visualizer onTarget={onTarget} headers={headers} data={data} />
 
       <p>TODO: add instructions</p>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { SVG } from "@svgdotjs/svg.js"
 
 const boxSize = 15
@@ -12,12 +12,25 @@ const colors = {
 }
 
 const Visualizer = props => {
+  const [title, setTitle] = useState("Title")
+
   useEffect(() => {
     document.getElementById("visualization").innerHTML = ""
-    visualize(props.onTarget, props.headers, props.data)
+    visualize(props.onTarget, props.headers, props.data, title)
   })
 
-  return <div id="visualization"></div>
+  return (
+    <>
+      <input
+        type="text"
+        value={title}
+        onChange={e => {
+          setTitle(e.target.value)
+        }}
+      />
+      <div id="visualization"></div>
+    </>
+  )
 }
 
 function range(start, end) {
@@ -28,7 +41,7 @@ function range(start, end) {
   return ans
 }
 
-function visualize(onTarget, headers, data) {
+function visualize(onTarget, headers, data, title) {
   let xOffset = 20
   let yOffset = 50
 
@@ -38,7 +51,7 @@ function visualize(onTarget, headers, data) {
 
   // Title
   draw
-    .text("TODO: Title")
+    .text(title)
     .x(xOffset)
     .y(30)
     .css("font-size", "20px")

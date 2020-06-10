@@ -28,7 +28,6 @@ class Jexcel extends React.Component {
       <div>
         <div></div>
         <br />
-        <br />
         <input
           type="text"
           value={this.state.rowsToAdd}
