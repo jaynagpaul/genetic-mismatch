@@ -48,6 +48,9 @@ function visualize(onTarget, headers, data, title) {
   var draw = SVG()
     .addTo("#visualization")
     .size("100%", "100%")
+  // .viewbox(0, 0, 10, 100)
+
+  draw.rect("100%", "100%").attr("fill", "white")
 
   // Title
   draw

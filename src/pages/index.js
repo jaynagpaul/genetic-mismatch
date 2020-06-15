@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import Visualizer from "../components/visualizer"
+import Downloader from "../components/downloader"
 
 import "../../node_modules/jexcel/dist/jexcel.css"
 
@@ -69,6 +70,7 @@ const IndexPage = () => {
       <br />
       <Visualizer onTarget={onTarget} headers={headers} data={data} />
 
+      <Downloader />
       <p>TODO: add instructions</p>
       {/* <Link to="/page-2/">Go to page 2</Link> */}
     </Layout>
