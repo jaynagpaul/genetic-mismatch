@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { SVG } from "@svgdotjs/svg.js"
+import queryString from "query-string"
 
 const boxSize = 15
 
@@ -11,12 +12,23 @@ const colors = {
   N: "#B3B3B3",
 }
 
+const copyToClipboard = str => {
+  const el = document.createElement("textarea")
+  el.value = str
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand("copy")
+  document.body.removeChild(el)
+}
+
 const Visualizer = props => {
   const [title, setTitle] = useState("Title")
+  const { onTarget, headers, data } = props
 
   useEffect(() => {
     document.getElementById("visualization").innerHTML = ""
-    visualize(props.onTarget, props.headers, props.data, title)
+
+    visualize("#visualization", onTarget, headers, data, title)
   })
 
   return (
@@ -28,7 +40,24 @@ const Visualizer = props => {
           setTitle(e.target.value)
         }}
       />
+
       <div id="visualization"></div>
+
+      <button
+        onClick={() => {
+          const url =
+            window.location.origin +
+            "/embed?" +
+            queryString.stringify({ onTarget, headers, data, title })
+
+          let embed = document.createElement("iframe")
+          embed.setAttribute("src", url)
+
+          copyToClipboard(embed.outerHTML)
+        }}
+      >
+        Copy Embed Code
+      </button>
     </>
   )
 }
@@ -41,12 +70,12 @@ function range(start, end) {
   return ans
 }
 
-function visualize(onTarget, headers, data, title) {
+export function visualize(domTarget, onTarget, headers, data, title) {
   let xOffset = 20
   let yOffset = 50
 
   var draw = SVG()
-    .addTo("#visualization")
+    .addTo(domTarget)
     .size("100%", "100%")
   // .viewbox(0, 0, 10, 100)
 
@@ -109,9 +138,9 @@ function visualize(onTarget, headers, data, title) {
       .css("font-family", "Courier")
 
     var idx = 0
-    for (var row of data) {
+    for (const row of data) {
       draw
-        .text(row[i + 1].toString()) // +1 because the first one is sequence
+        .text(row[i + 1]) // +1 because the first one is sequence
         .x(xOffset + extraXOffset)
         .y(yOffset + 10 + boxSize * (idx + 2) - 19)
         .attr("fill", "black")

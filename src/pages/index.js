@@ -9,9 +9,9 @@ import "../../node_modules/jexcel/dist/jexcel.css"
 
 const JexcelLazy = React.lazy(() => import("../components/excel"))
 const defaultData = [
-  ["AATTGGCCNGGAA", 15],
-  ["AATTGGCCNGGGG", 11],
-  ["AATTGGCCNGGAT", 1],
+  ["AATTGGCCNGGAA", "15"],
+  ["AATTGGCCNGGGG", "11"],
+  ["AATTGGCCNGGAT", "1"],
 ]
 
 const defaultColumns = [
@@ -20,7 +20,7 @@ const defaultColumns = [
     title: "Sequence",
   },
   {
-    type: "numeric",
+    type: "text",
     title: "Reads",
   },
 ]
@@ -72,6 +72,7 @@ const IndexPage = () => {
 
       <Downloader />
       <p>TODO: add instructions</p>
+      <p>Use better method of embed, base64 encode the object</p>
       {/* <Link to="/page-2/">Go to page 2</Link> */}
     </Layout>
   )

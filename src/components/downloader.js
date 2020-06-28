@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Canvg, { presets } from "canvg"
 function downloadURI(uri, name) {
   // Construct the <a> element
