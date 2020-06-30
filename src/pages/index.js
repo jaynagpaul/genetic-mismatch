@@ -28,24 +28,28 @@ const defaultColumns = [
 const IndexPage = () => {
   const isSSR = typeof window === "undefined"
 
-  const [onTarget, setOnTarget] = useState(defaultData[0][0])
-  const [headers, setHeaders] = useState(["Reads"])
-  const [data, setData] = useState(defaultData)
+  const [state, setState] = useState({
+    onTarget: defaultData[0][0],
+    headers: ["Reads"],
+    data: defaultData,
+  })
 
   const onSheetChange = sheet => {
     const d = sheet.jexcel.getData()
-
     var h = []
     for (let i = 1; i < d[0].length; i++) {
       h.push(sheet.jexcel.getHeader(i))
     }
-    setOnTarget(d[0][0])
-    setHeaders(h)
-    setData(d)
+
+    setState({
+      data: d,
+      onTarget: d[0][0],
+      headers: h,
+    })
   }
 
   var options = {
-    data: data,
+    data: state.data,
     minDimensions: [2, 7],
     columns: defaultColumns,
     defaultColWidth: 200,
@@ -68,7 +72,11 @@ const IndexPage = () => {
         </React.Suspense>
       )}
       <br />
-      <Visualizer onTarget={onTarget} headers={headers} data={data} />
+      <Visualizer
+        onTarget={state.onTarget}
+        headers={state.headers}
+        data={state.data}
+      />
 
       <Downloader />
       <p>TODO: add instructions</p>

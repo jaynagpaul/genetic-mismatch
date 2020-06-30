@@ -24,7 +24,6 @@ const copyToClipboard = str => {
 const Visualizer = props => {
   const [title, setTitle] = useState("Title")
   const { onTarget, headers, data } = props
-
   useEffect(() => {
     document.getElementById("visualization").innerHTML = ""
 
@@ -130,6 +129,8 @@ export function visualize(domTarget, onTarget, headers, data, title) {
   // Header names
   var extraXOffset = boxSize * onTarget.length + 16
   for (var i = 0; i < headers.length; i++) {
+    console.log(headers[i])
+    console.log(xOffset + extraXOffset)
     draw
       .text(headers[i])
       .x(xOffset + extraXOffset)
@@ -138,9 +139,15 @@ export function visualize(domTarget, onTarget, headers, data, title) {
       .css("font-family", "Courier")
 
     var idx = 0
+
+    let headerData = []
     for (const row of data) {
+      headerData.push(row[i + 1]) // +1 because the first column is sequence
+    }
+
+    for (const row of headerData) {
       draw
-        .text(row[i + 1]) // +1 because the first one is sequence
+        .text(row)
         .x(xOffset + extraXOffset)
         .y(yOffset + 10 + boxSize * (idx + 2) - 19)
         .attr("fill", "black")
@@ -150,7 +157,14 @@ export function visualize(domTarget, onTarget, headers, data, title) {
       idx++
     }
 
-    extraXOffset += boxSize * headers[i].length
+    // The next column should be extraXOffset units to the right
+    // extraXOffset is calculated by the largest value of data in the headers or the header itself
+    let longestDatapoint = Math.max(
+      ...[headers[i].length, ...headerData.map(el => el.length)]
+    )
+    console.log("longestDatapoint")
+    console.log([headers[i].length, ...headerData.map(el => el.length)])
+    extraXOffset += longestDatapoint * 10 + 30
   }
 
   // Draw aligned off targets
