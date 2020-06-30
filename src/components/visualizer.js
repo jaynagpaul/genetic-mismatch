@@ -129,8 +129,6 @@ export function visualize(domTarget, onTarget, headers, data, title) {
   // Header names
   var extraXOffset = boxSize * onTarget.length + 16
   for (var i = 0; i < headers.length; i++) {
-    console.log(headers[i])
-    console.log(xOffset + extraXOffset)
     draw
       .text(headers[i])
       .x(xOffset + extraXOffset)
@@ -162,8 +160,6 @@ export function visualize(domTarget, onTarget, headers, data, title) {
     let longestDatapoint = Math.max(
       ...[headers[i].length, ...headerData.map(el => el.length)]
     )
-    console.log("longestDatapoint")
-    console.log([headers[i].length, ...headerData.map(el => el.length)])
     extraXOffset += longestDatapoint * 10 + 30
   }
 
