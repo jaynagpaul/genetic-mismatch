@@ -170,7 +170,7 @@ export function visualize(domTarget, onTarget, headers, data, title) {
     .map(x => x[0])
     .forEach((seq, j) => {
       let y = yOffset + j * boxSize
-
+      seq = seq.toUpperCase()
       seq.split("").forEach((c, i) => {
         let x = xOffset + i * boxSize
 
