@@ -187,7 +187,7 @@ export function visualize(domTarget, onTarget, headers, data, title) {
             .rect(boxSize, boxSize)
             .x(x)
             .y(boxSize + y)
-            .attr("fill", colors[c])
+            .attr("fill", colors[c.toUpperCase()])
 
           draw
             .text(c)
